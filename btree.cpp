@@ -71,11 +71,9 @@ public:
   size_t n;
   bool isLeaf;
 
-  BNode(bool leaf):order(S){
+  BNode(bool leaf):order(S),n(0),isLeaf(leaf){
     keys=container_t(order,0);
     ptrs=pcontainer_t(order,NULL);
-    isLeaf = leaf;
-    n = 0;
   }
 
   ~BNode(void){}
