@@ -73,7 +73,7 @@ public:
 
   BNode(bool leaf):order(S),n(0),isLeaf(leaf){
     keys=container_t(order,0);
-    ptrs=pcontainer_t(order,NULL);
+    ptrs=pcontainer_t(order,NULL); 
   }
 
   ~BNode(void){}
@@ -86,7 +86,7 @@ public:
             while (i >= 0 && keys[i] > value) 
             { 
                 keys[i+1] = keys[i]; 
-                i--; 
+                i-=1; 
             } 
             keys[i+1] = value; 
             n +=1; 
@@ -111,12 +111,12 @@ public:
         z->n = order - 1; 
       
         for (int j = 0; j < order-1; j++) 
-            z->keys[j] = y->keys[j+order]; 
+            z->keys[j] = y->keys[j+z->n]; 
       
         if (y->isLeaf == false) 
         { 
             for (int j = 0; j < order; j++) 
-                z->ptrs[j] = y->ptrs[j+order]; 
+                z->ptrs[j] = y->ptrs[j+z->n]; 
         } 
       
         y->n = order - 1; 
