@@ -173,27 +173,27 @@ public:
   {
     // TODO :: INSERT
     if (root == nullptr) 
-        {   
-            root = new BNode<T,S>(true); 
-            root->keys[0] = value;  
-            root->n = 1;  
-        } 
-        else  
-        { 
-            if (root->n == 2*root->order-1) 
-            { 
-                BNode<T,S> *new_node = new BNode<T,S>(false); 
-                new_node->ptrs[0] = root; 
-                new_node->splitNodeChild(0, root); 
-                int i = 0; 
-                if (new_node->keys[0] < value) 
-                    i++; 
-                new_node->ptrs[i]->insertNodeChild(value);
-                root = new_node; 
-            } 
-            else  
-                root->insertNodeChild(value); 
-        } 
+    {   
+      root = new BNode<T,S>(true); 
+      root->keys[0] = value;  
+      root->n = 1;  
+    } 
+    else  
+    { 
+      if (root->n == 2*root->order-1) 
+      { 
+        BNode<T,S> *new_node = new BNode<T,S>(false); 
+        new_node->ptrs[0] = root; 
+        new_node->splitNodeChild(0, root); 
+        int i = 0; 
+        if (new_node->keys[0] < value) 
+          i++; 
+        new_node->ptrs[i]->insertNodeChild(value);
+        root = new_node; 
+      } 
+      else  
+        root->insertNodeChild(value); 
+    } 
   }
 
   bool find(const value_t value = 0) const{
