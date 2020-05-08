@@ -23,8 +23,8 @@ class BNode {
 
   BNode(unsigned int order = 4):order(order),leaf(false),n(0)
   {
-    data = container_t(order+1,0);
-    children = pcontainer_t(order,nullptr);
+    data = container_t(order,0);
+    children = pcontainer_t(order+1,nullptr);
   }
   
   void insertNodeChild(value_t value) 
@@ -60,12 +60,12 @@ class BNode {
         new_node->n = ceil(order/2) - 1; 
       
         for (int j = 0; j < ceil(order/2)-1; j++) 
-            new_node->data[j] = node->data[j+order]; 
+            new_node->data[j] = node->data[j+new_node->n+1]; 
       
         if (node->leaf == false) 
         { 
             for (int j = 0; j < ceil(order/2); j++) 
-                new_node->children[j] = node->children[j+order]; 
+                new_node->children[j] = node->children[j+new_node->n+1]; 
         } 
       
         node->n = ceil(order/2) - 1; 

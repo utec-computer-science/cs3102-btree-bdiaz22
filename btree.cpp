@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector> 
+#include <cmath>
 
 using namespace std;
 
@@ -98,7 +99,7 @@ public:
         { 
             while (i >= 0 && keys[i] > value) 
                 i-=1; 
-            if (ptrs[i+1]->n == 2*order-1) 
+            if (ptrs[i+1]->n == order-1) 
             { 
                 splitNodeChild(i+1, ptrs[i+1]); 
                 if (keys[i+1] < value) 
@@ -111,18 +112,18 @@ public:
     void splitNodeChild(int i, BNode<T,S> *y)  
     { 
         BNode<T,S> *z = new BNode<T,S>(y->isLeaf); 
-        z->n = order - 1; 
+        z->n = ceil(order/2) - 1; 
       
-        for (int j = 0; j < order-1; j++) 
-            z->keys[j] = y->keys[j+order]; 
+        for (int j = 0; j < ceil(order/2)-1; j++) 
+            z->keys[j] = y->keys[j+z->n+1]; 
       
         if (y->isLeaf == false) 
         { 
-            for (int j = 0; j < order; j++) 
-                z->ptrs[j] = y->ptrs[j+order]; 
+            for (int j = 0; j < ceil(order/2); j++) 
+                z->ptrs[j] = y->ptrs[j+z->n+1]; 
         } 
       
-        y->n = order - 1; 
+        y->n = ceil(order/2) - 1; 
       
         for (int j = n; j >= i+1; j--) 
           ptrs[j+1] = ptrs[j]; 
@@ -132,7 +133,7 @@ public:
         for (int j = n-1; j >= i; j--) 
             keys[j+1] = keys[j]; 
       
-        keys[i] = y->keys[order-1]; 
+        keys[i] = y->keys[ceil(order/2)-1]; 
       
         n += 1; 
     }
